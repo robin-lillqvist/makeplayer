@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// making a random username from Site ID and random digits/characters
 function randomUsername (site) {
   return (
     `${site}-` +
@@ -12,10 +13,13 @@ function randomUsername (site) {
   )
 }
 
+//making a random phone number
 function randomPhone () {
   return '70' + (Math.floor(Math.random() * 9000000) + 1000000)
 }
 
+// making the actual request to the API
+// not done yet
 const requestPlayer = async (request, site, url) => {
   let requestURL = `https://${site}${url}`
   debugger
@@ -27,6 +31,7 @@ const requestPlayer = async (request, site, url) => {
   }
 }
 
+// Making the request body
 export default async function CreatePlayer (site, franchise, currency, url) {
   let user = randomUsername(site)
   let phone = randomPhone()
