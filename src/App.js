@@ -1,17 +1,12 @@
 import React from "react";
 import "./App.css";
-import CreatePlayer from "./components/CreatePlayer";
-
-const siteList = {
-  comeon: "https://comeon.cleverdolphin.se/sv/casino",
-  mobilebet: "https://mobilebet.cleverdolphin.se/sv/casino",
-};
+import CreatePlayerForm from "./components/CreatePlayerForm";
 
 function App() {
   return (
     <div className="App">
       <h1>Create Player Page</h1>
-      <CreatePlayer />
+      <CreatePlayerForm />
     </div>
   );
 }

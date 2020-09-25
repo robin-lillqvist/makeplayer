@@ -1,45 +1,58 @@
-import React, { Component, useState } from 'react'
+import axios from 'axios'
 
-export default class CreatePlayer extends Component {
-  state = {
-    site: 'comeon',
-    franchise: 'se'
+function randomUsername (site) {
+  return (
+    `${site}-` +
+    Math.random()
+      .toString(36)
+      .substring(2, 7) +
+    Math.random()
+      .toString(36)
+      .substring(2, 7)
+  )
+}
+
+function randomPhone () {
+  return '70' + (Math.floor(Math.random() * 9000000) + 1000000)
+}
+
+const requestPlayer = async (request, site, url) => {
+  let requestURL = `https://${site}${url}`
+  debugger
+  try {
+    let response = await axios.post(requestURL, {})
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
+export default async function CreatePlayer (site, franchise, currency, url) {
+  let user = randomUsername(site)
+  let phone = randomPhone()
+
+  let apiRequest = {
+    username: user,
+    password: 'password',
+    email: `${user}@comeon.com`,
+    firstName: 'API',
+    lastName: 'User',
+    gender: 'FEMALE',
+    postalCode: '12331',
+    city: 'Stockholm',
+    country: `${franchise}`,
+    currency: `${currency}`,
+    day: 1,
+    month: 1,
+    year: 1988,
+    callingCode: '46',
+    phoneNumber: phone,
+    address: 'Kungsgatan 39',
+    deviceId: 'TestDevice',
+    acceptMarketingOffers: false
   }
 
-  setSite (e) {
-    this.setState({
-      site: e.target.value
-    })
-  }
-  setFranchise (e) {
-    this.setState({
-      franchise: e.target.value
-    })
-  }
+  let result = requestPlayer(apiRequest, site, url)
 
-  render () {
-    return (
-      <div>
-        <div>
-          {this.state.site} {'  '} {this.state.franchise}
-        </div>
-
-        <label for='site'>Choose a Site: </label>
-        <select name='site' id='site' onChange={this.setSite.bind(this)}>
-          <option value='comeon'>Comeon</option>
-          <option value='mobilebet'>Mobilebet</option>
-        </select>
-
-        <label for='franchise'>Choose a franchise: </label>
-        <select
-          name='franchise'
-          id='franchise'
-          onChange={this.setFranchise.bind(this)}
-        >
-          <option value='se'>Sweden</option>
-          <option value='fi'>Finland</option>
-        </select>
-      </div>
-    )
-  }
+  return result
 }
